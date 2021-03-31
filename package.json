@@ -5,8 +5,6 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"No tests have been setup!\"",
-    "pretest": "npm run lint",
     "lint": "standard",
     "fix": "standard --fix"
   },
