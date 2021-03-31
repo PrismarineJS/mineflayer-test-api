@@ -46,4 +46,4 @@ registerTest('run forward', async (server, startPosition) => {
 })
 ```
 
-In your CI file, simply run `npm run mineflayer-test` to run all test files.
+In your CI file, simply run `npm run mineflayer-test [mcVersion 1] [mcVersion 2] ...` to run all test files.
