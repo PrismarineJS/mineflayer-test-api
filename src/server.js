@@ -6,6 +6,10 @@ import minecraftData from 'minecraft-data'
 
 const { Wrap, download } = mcWrapper
 
+async function sleep (time) {
+  await new Promise(resolve => setTimeout(resolve, time))
+}
+
 export async function startServer (options) {
   const version = options.version
   const port = options.port ?? Math.round(30000 + Math.random() * 20000)
@@ -97,6 +101,16 @@ export async function startServer (options) {
         }
       })
     })
+  }
+
+  server.makeOp = async function (bot) {
+    wrap.writeServer(`op ${bot.username}`)
+    await sleep(100)
+  }
+
+  server.teleport = async function (bot, pos) {
+    wrap.writeServer(`tp ${bot.username} ${pos.x} ${pos.y} ${pos.z}`)
+    await sleep(1000)
   }
 
   return server

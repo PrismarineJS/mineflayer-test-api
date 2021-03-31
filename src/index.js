@@ -1,1 +1,1 @@
-export { startServer } from './server.js'
+export { registerTest } from './mineflayerTest.js'
