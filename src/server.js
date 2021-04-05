@@ -7,7 +7,7 @@ async function sleep (time) {
   await new Promise(resolve => setTimeout(resolve, time))
 }
 
-export async function startServer (options) {
+async function startServer (options) {
   const version = options.version
   const port = options.port ?? Math.round(30000 + Math.random() * 20000)
   const mcData = require('minecraft-data')(version)
@@ -127,4 +127,8 @@ export async function startServer (options) {
   }
 
   return server
+}
+
+exports.module = {
+  startServer
 }

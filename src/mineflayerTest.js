@@ -6,7 +6,7 @@ const fs = require('fs')
 let testList = []
 let currentDir = ''
 
-export function registerTest (name, test) {
+function registerTest (name, test) {
   testList.push({ name: `${currentDir}/${name}`, test })
 }
 
@@ -38,13 +38,13 @@ function loadAllTestFiles () {
   }
 }
 
-export function getDefinedTests () {
+function getDefinedTests () {
   testList = []
   loadAllTestFiles()
   return testList
 }
 
-export async function runTests (tests, mcVersions) {
+async function runTests (tests, mcVersions) {
   let failedSome = false
   for (const version of mcVersions) {
     let passed = 0
@@ -76,4 +76,10 @@ export async function runTests (tests, mcVersions) {
   }
 
   return failedSome
+}
+
+exports.module = {
+  registerTest,
+  runTests,
+  getDefinedTests
 }
