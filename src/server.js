@@ -140,7 +140,7 @@ async function startServer (options) {
   return server
 }
 
-function awaitServerMessage (bot, type) {
+function awaitServerMessage (bot, type, timeout = 1000) {
   return new Promise((resolve, reject) => {
     function listener (message) {
       if (message.translate === type) {
@@ -150,6 +150,10 @@ function awaitServerMessage (bot, type) {
     }
 
     bot.on('message', listener)
+    setTimeout(() => {
+      reject(new Error('Server message timed out before fulfilled'))
+      bot.off('message', listener)
+    }, timeout)
   })
 }
 
