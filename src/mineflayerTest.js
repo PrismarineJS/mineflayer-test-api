@@ -29,7 +29,8 @@ function getFiles (folder, files = []) {
     return files
   }
 
-  for (const f of fs.readdirSync(folder)) {
+  for (let f of fs.readdirSync(folder)) {
+    f = path.join(folder, f)
     if (fs.statSync(f).isDirectory()) {
       getFiles(f, files)
     } else {
@@ -45,7 +46,8 @@ function loadAllTestFiles () {
   const files = getFiles(testFolder)
 
   for (const file of files) {
-    assignCurrentDir(path.relative(file, testFolder))
+    const testFile = path.relative(file, testFolder)
+    assignCurrentDir(testFile)
     import(file)
   }
 }
@@ -84,7 +86,7 @@ export async function runTests (tests, mcVersions) {
 
     await server.stop()
 
-    console.log(`Tests complete for Minecraft version ${version}. ${passed.length} tests passed, ${failed.length} tests failed.`)
+    console.log(`Tests complete for Minecraft version ${version}. ${passed} tests passed, ${failed} tests failed.`)
   }
 
   return failedSome
