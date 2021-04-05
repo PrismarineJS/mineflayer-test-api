@@ -12,18 +12,6 @@ export function registerTest (name, test) {
   testList.push({ name: `${currentDir}/${name}`, test })
 }
 
-export function getRegisteredTests () {
-  return testList
-}
-
-export function clearTests () {
-  testList = []
-}
-
-export function assignCurrentDir (dir) {
-  currentDir = dir
-}
-
 function getFiles (folder, files = []) {
   if (!fs.existsSync(folder)) {
     return files
@@ -47,15 +35,15 @@ function loadAllTestFiles () {
 
   for (const file of files) {
     const testFile = path.relative(file, testFolder)
-    assignCurrentDir(testFile)
+    currentDir = testFile
     import(file)
   }
 }
 
 export function getDefinedTests () {
-  clearTests()
+  testList = []
   loadAllTestFiles()
-  return getRegisteredTests()
+  return testList
 }
 
 export async function runTests (tests, mcVersions) {
