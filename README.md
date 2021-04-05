@@ -32,7 +32,7 @@ registerTest('run forward', async (server, startPosition) => {
   await events.once(bot, 'spawn')
 
   // Make the bot op and teleport them to the start position
-  await server.makeOp(server)
+  await server.makeOp(bot)
   await server.teleport(bot, startPosition)
 
   // Run our test
