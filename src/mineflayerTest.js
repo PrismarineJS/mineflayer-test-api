@@ -53,11 +53,13 @@ async function runTests (tests, mcVersions) {
     console.log(`Testing for Minecraft version ${version}.`)
     const server = await startServer({ version })
 
+    const runningTests = []
+
     let xOffset = 0
     for (const test of tests) {
       const testPosition = new Vec3(xOffset, 4, 0)
 
-      test.test(server, testPosition)
+      runningTests.push(test.test(server, testPosition)
         .then(() => {
           console.log(`'${test.name}' test passed!`)
           passed += 1
@@ -66,10 +68,11 @@ async function runTests (tests, mcVersions) {
           console.log(err)
           failed += 1
           failedSome = true
-        })
+        }))
       xOffset += 5000
     }
 
+    await Promise.allSettled(runningTests)
     await server.stop()
 
     console.log(`Tests complete for Minecraft version ${version}. ${passed} tests passed, ${failed} tests failed.`)
@@ -78,7 +81,7 @@ async function runTests (tests, mcVersions) {
   return failedSome
 }
 
-exports.module = {
+module.exports = {
   registerTest,
   runTests,
   getDefinedTests
