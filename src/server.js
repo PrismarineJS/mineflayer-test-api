@@ -2,6 +2,7 @@ const { Wrap, download } = require('minecraft-wrap')
 const mc = require('minecraft-protocol')
 const path = require('path')
 const assert = require('assert')
+const { once } = require('events')
 
 async function sleep (time) {
   await new Promise(resolve => setTimeout(resolve, time))
@@ -102,14 +103,15 @@ async function startServer (options) {
 
   server.makeOp = async function (bot) {
     wrap.writeServer(`op ${bot.username}\n`)
-    await sleep(50)
+    await awaitServerMessage(bot, 'chat.type.admin')
 
     console.log(`Make ${bot.username} OP.`)
   }
 
   server.teleport = async function (bot, pos) {
     wrap.writeServer(`tp ${bot.username} ${pos.x} ${pos.y} ${pos.z}\n`)
-    await sleep(1000)
+    await once(bot, 'forcedMove')
+    await bot.waitForChunksToLoad()
 
     console.log(`Teleported ${bot.username} to ${pos.x} ${pos.y} ${pos.z}.`)
   }
@@ -137,6 +139,23 @@ async function startServer (options) {
   }
 
   return server
+}
+
+function awaitServerMessage (bot, type, timeout = 1000) {
+  return new Promise((resolve, reject) => {
+    function listener (message) {
+      if (message.translate === type) {
+        resolve()
+        bot.off('message', listener)
+      }
+    }
+
+    bot.on('message', listener)
+    setTimeout(() => {
+      reject(new Error('Server message timed out before fulfilled'))
+      bot.off('message', listener)
+    }, timeout)
+  })
 }
 
 module.exports = {
