@@ -78,7 +78,7 @@ async function runTests (tests, mcVersions) {
   return failedSome
 }
 
-exports.module = {
+module.exports = {
   registerTest,
   runTests,
   getDefinedTests

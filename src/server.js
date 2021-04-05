@@ -129,6 +129,6 @@ async function startServer (options) {
   return server
 }
 
-exports.module = {
+module.exports = {
   startServer
 }
