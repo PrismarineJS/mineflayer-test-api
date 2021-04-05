@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { getDefinedTests, runTests } from '../mineflayerTest.js'
 
 const versions = process.argv.slice(2)
