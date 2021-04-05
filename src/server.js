@@ -1,10 +1,7 @@
-import mcWrapper from 'minecraft-wrap'
-import mc from 'minecraft-protocol'
-import path from 'path'
-import assert from 'assert'
-import minecraftData from 'minecraft-data'
-
-const { Wrap, download } = mcWrapper
+const { Wrap, download } = require('minecraft-wrap')
+const mc = require('minecraft-protocol')
+const path = require('path')
+const assert = require('assert')
 
 async function sleep (time) {
   await new Promise(resolve => setTimeout(resolve, time))
@@ -13,7 +10,7 @@ async function sleep (time) {
 export async function startServer (options) {
   const version = options.version
   const port = options.port ?? Math.round(30000 + Math.random() * 20000)
-  const mcData = minecraftData(version)
+  const mcData = require('minecraft-data')(version)
   const serverPath = path.join(process.cwd(), 'server')
   const logToConsole = options.logToConsole ?? true
   const cleanup = options.cleanup ?? true

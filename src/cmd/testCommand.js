@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { getDefinedTests, runTests } from '../mineflayerTest.js'
+const { getDefinedTests, runTests } = require('../mineflayerTest.js')
 
 const versions = process.argv.slice(2)
 if (versions.length === 0) {

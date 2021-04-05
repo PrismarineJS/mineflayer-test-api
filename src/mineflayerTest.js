@@ -1,9 +1,7 @@
-import { startServer } from './server.js'
-import vec3 from 'vec3'
-import path from 'path'
-import fs from 'fs'
-
-const { Vec3 } = vec3
+const { startServer } = require('./server.js')
+const { Vec3 } = require('vec3')
+const path = require('path')
+const fs = require('fs')
 
 let testList = []
 let currentDir = ''

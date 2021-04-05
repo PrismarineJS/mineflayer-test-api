@@ -1,1 +1,2 @@
-export { registerTest } from './mineflayerTest.js'
+const { registerTest } = require('./mineflayerTest.js')
+exports.module = { registerTest }

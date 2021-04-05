@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "An automated testing library for Mineflayer and Mineflayer plugins with CI/CD.",
   "main": "src/index.js",
-  "type": "module",
   "scripts": {
     "lint": "standard",
     "fix": "standard --fix"
