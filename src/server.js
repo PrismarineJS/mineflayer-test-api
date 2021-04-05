@@ -105,12 +105,28 @@ export async function startServer (options) {
 
   server.makeOp = async function (bot) {
     wrap.writeServer(`op ${bot.username}`)
-    await sleep(100)
+    await sleep(50)
   }
 
   server.teleport = async function (bot, pos) {
     wrap.writeServer(`tp ${bot.username} ${pos.x} ${pos.y} ${pos.z}`)
     await sleep(1000)
+  }
+
+  server.setBlock = async function (pos, block) {
+    wrap.writeServer(`setblock ${pos.x} ${pos.y} ${pos.z} minecraft:${block}`)
+    await sleep(50)
+  }
+
+  server.fillBlocks = async function (pos, size, block) {
+    const end = pos.plus(size)
+    wrap.writeServer(`fill ${pos.x} ${pos.y} ${pos.z} ${end.x} ${end.y} ${end.z} minecraft:${block}`)
+    await sleep(50)
+  }
+
+  server.runCommand = async function (cmd) {
+    wrap.writeServer(cmd)
+    await sleep(50)
   }
 
   return server
