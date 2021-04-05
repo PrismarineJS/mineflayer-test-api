@@ -2,7 +2,6 @@ const { Wrap, download } = require('minecraft-wrap')
 const mc = require('minecraft-protocol')
 const path = require('path')
 const assert = require('assert')
-const { resolve } = require('path')
 const { once } = require('events')
 
 async function sleep (time) {
@@ -103,29 +102,39 @@ async function startServer (options) {
   }
 
   server.makeOp = async function (bot) {
-    wrap.writeServer(`op ${bot.username}`)
+    wrap.writeServer(`op ${bot.username}\n`)
     await awaitServerMessage(bot, 'chat.type.admin')
+
+    console.log(`Make ${bot.username} OP.`)
   }
 
   server.teleport = async function (bot, pos) {
-    wrap.writeServer(`tp ${bot.username} ${pos.x} ${pos.y} ${pos.z}`)
-    await bot.waitForChunksToLoad()
+    wrap.writeServer(`tp ${bot.username} ${pos.x} ${pos.y} ${pos.z}\n`)
+    await once(bot, 'forcedMove')
+
+    console.log(`Teleported ${bot.username} to ${pos.x} ${pos.y} ${pos.z}.`)
   }
 
   server.setBlock = async function (pos, block) {
-    wrap.writeServer(`setblock ${pos.x} ${pos.y} ${pos.z} minecraft:${block}`)
+    wrap.writeServer(`setblock ${pos.x} ${pos.y} ${pos.z} minecraft:${block}\n`)
     await sleep(50)
+
+    console.log(`Set block at ${pos.x} ${pos.y} ${pos.z} to ${block}`)
   }
 
   server.fillBlocks = async function (pos, size, block) {
     const end = pos.plus(size)
-    wrap.writeServer(`fill ${pos.x} ${pos.y} ${pos.z} ${end.x} ${end.y} ${end.z} minecraft:${block}`)
+    wrap.writeServer(`fill ${pos.x} ${pos.y} ${pos.z} ${end.x} ${end.y} ${end.z} minecraft:${block}\n`)
     await sleep(50)
+
+    console.log(`Filled region from ${pos.x} ${pos.y} ${pos.z} to ${end.x} ${end.y} ${end.z} with ${block}`)
   }
 
   server.runCommand = async function (cmd) {
-    wrap.writeServer(cmd)
+    wrap.writeServer(`${cmd}\n`)
     await sleep(50)
+
+    console.log(`Executed command '${cmd}'`)
   }
 
   return server
@@ -144,6 +153,6 @@ function awaitServerMessage (bot, type) {
   })
 }
 
-exports.module = {
+module.exports = {
   startServer
 }
