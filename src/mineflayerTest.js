@@ -1,7 +1,9 @@
-import { startServer } from '../server.js'
-import { Vec3 } from 'vec3'
+import { startServer } from './server.js'
+import vec3 from 'vec3'
 import path from 'path'
 import fs from 'fs'
+
+const { Vec3 } = vec3
 
 let testList = []
 let currentDir = ''
@@ -23,6 +25,10 @@ export function assignCurrentDir (dir) {
 }
 
 function getFiles (folder, files = []) {
+  if (!fs.existsSync(folder)) {
+    return files
+  }
+
   for (const f of fs.readdirSync(folder)) {
     if (fs.statSync(f).isDirectory()) {
       getFiles(f, files)
