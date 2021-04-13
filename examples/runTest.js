@@ -10,7 +10,7 @@ registerTest('run forward', async (server, startPosition) => {
   })
 
   await events.once(bot, 'spawn')
-  await server.makeOp(server)
+  await server.makeOp(bot)
   await server.teleport(bot, startPosition)
 
   bot.setControlState('sprint', true)
