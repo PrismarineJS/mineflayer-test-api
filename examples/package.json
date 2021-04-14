@@ -1,0 +1,17 @@
+{
+    "name": "example-repo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "mineflayer-test 1.14 1.15 1.16"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "mineflayer-test-api": "file:../..",
+      "mineflayer": "latest"
+    }
+  }
+  
