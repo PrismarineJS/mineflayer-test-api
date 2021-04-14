@@ -36,5 +36,4 @@ jobs:
     - run: |
         cd examples/example-repo/
         npm install
-        npm test > log.txt
-        cat log.txt | findstr "test passed!"
+        npm test
