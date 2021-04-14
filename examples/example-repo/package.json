@@ -8,10 +8,9 @@
     },
     "keywords": [],
     "author": "",
-    "license": "ISC",
-    "devDependencies": {
-      "mineflayer-test-api": "file:../..",
-      "mineflayer": "latest"
+    "license": "MIT",
+    "dependencies": {
+      "mineflayer": "^3.6.0"
     }
   }
   
