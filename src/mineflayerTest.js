@@ -2,6 +2,7 @@ const { startServer } = require('./server.js')
 const { Vec3 } = require('vec3')
 const path = require('path')
 const fs = require('fs')
+const url = require('url')
 
 let testList = []
 let currentDir = ''
@@ -34,7 +35,7 @@ function loadAllTestFiles () {
   for (const file of files) {
     const testFile = path.relative(file, testFolder)
     currentDir = testFile
-    import(file)
+    import(url.pathToFileURL(file))
   }
 }
 
