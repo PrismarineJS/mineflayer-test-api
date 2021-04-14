@@ -21,8 +21,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run lint
+    - run: |
+        npm install
+        npm run lint
+        cd examples/example-repo/
+        npm install ../..
+        npm test
   
   test-windows:
     runs-on: windows-latest
@@ -34,6 +38,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: |
+        npm install
+        npm run lint
         cd examples/example-repo/
         npm install ../..
         npm test
