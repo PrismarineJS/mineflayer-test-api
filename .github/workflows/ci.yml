@@ -35,5 +35,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: |
         cd examples/example-repo/
-        npm install
+        npm install ../..
         npm test
