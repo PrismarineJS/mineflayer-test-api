@@ -8,7 +8,7 @@ let testList = []
 let currentDir = ''
 
 function registerTest (name, test) {
-  testList.push({ name: `${currentDir}/${name}`, test })
+  testList.push({ name: `test/${path.basename(__filename)}/${name}`, test })
 }
 
 function getFiles (folder, files = []) {
