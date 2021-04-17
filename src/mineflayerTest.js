@@ -5,7 +5,6 @@ const fs = require('fs')
 const url = require('url')
 
 let testList = []
-let currentDir = ''
 
 function registerTest (name, test) {
   testList.push({ name: `test/${path.basename(__filename)}/${name}`, test })
