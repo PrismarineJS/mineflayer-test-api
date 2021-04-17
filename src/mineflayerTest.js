@@ -32,8 +32,6 @@ function loadAllTestFiles () {
   const files = getFiles(testFolder)
 
   for (const file of files) {
-    const testFile = path.relative(file, testFolder)
-    currentDir = testFile
     import(url.pathToFileURL(file))
   }
 }
