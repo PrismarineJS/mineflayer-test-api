@@ -5,10 +5,9 @@ const fs = require('fs')
 const url = require('url')
 
 let testList = []
-let currentDir = ''
 
 function registerTest (name, test) {
-  testList.push({ name: `${currentDir}/${name}`, test })
+  testList.push({ name: `test/${path.basename(__filename)}/${name}`, test })
 }
 
 function getFiles (folder, files = []) {
@@ -33,8 +32,6 @@ function loadAllTestFiles () {
   const files = getFiles(testFolder)
 
   for (const file of files) {
-    const testFile = path.relative(file, testFolder)
-    currentDir = testFile
     import(url.pathToFileURL(file))
   }
 }
