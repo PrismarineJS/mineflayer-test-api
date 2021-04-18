@@ -113,7 +113,7 @@ async function startServer (options) {
 
     while (true) {
       await once(bot, 'move')
-      if (bot.entity.position.distanceTo(position) <= 0.5) break
+      if (bot.entity.position.distanceTo(pos) <= 0.5) break
     }
     await bot.waitForChunksToLoad()
 
