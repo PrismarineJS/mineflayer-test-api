@@ -10,6 +10,7 @@ registerTest('run forward', async (server, startPosition) => {
   })
 
   await events.once(bot, 'spawn')
+  await bot.waitForChunks()
   await server.makeOp(bot)
   await server.teleport(bot, startPosition)
 
