@@ -1,17 +1,10 @@
 const { registerTest } = require('mineflayer-test-api')
-const mineflayer = require('mineflayer')
-const events = require('events')
 
 registerTest('run forward', async (server, startPosition) => {
-  const bot = mineflayer.createBot({
-    host: 'localhost',
-    port: server.port,
-    username: 'bot123456'
+  const bot = await server.createBot({
+    makeOp: true,
+    startPosition: startPosition
   })
-
-  await events.once(bot, 'spawn')
-  await server.makeOp(bot)
-  await server.teleport(bot, startPosition)
 
   bot.setControlState('sprint', true)
   bot.setControlState('forward', true)
