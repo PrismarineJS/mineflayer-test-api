@@ -3,6 +3,9 @@ const mc = require('minecraft-protocol')
 const path = require('path')
 const assert = require('assert')
 const { once } = require('events')
+const mineflayer = require('mineflayer')
+const { v4: uuidv4 } = require('uuid')
+const events = require('events')
 
 async function sleep (time) {
   await new Promise(resolve => setTimeout(resolve, time))
@@ -99,6 +102,21 @@ async function startServer (options) {
         }
       })
     })
+  }
+
+  server.createBot = async function (botOptions = {}) {
+    const bot = mineflayer.createBot({
+      host: 'localhost',
+      port: server.port,
+      username: uuidv4().substring(0, 15),
+      version: server.version
+    })
+
+    await events.once(bot, 'spawn')
+    if (botOptions.makeOp) await server.makeOp(bot)
+    if (botOptions.startPosition) await server.teleport(bot, botOptions.startPosition)
+
+    return bot
   }
 
   server.makeOp = async function (bot) {
