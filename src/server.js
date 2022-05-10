@@ -128,7 +128,11 @@ async function startServer (options) {
 
   server.teleport = async function (bot, pos) {
     wrap.writeServer(`tp ${bot.username} ${pos.x} ${pos.y} ${pos.z}\n`)
-    await once(bot, 'forcedMove')
+
+    while (true) {
+      await once(bot, 'move')
+      if (bot.entity.position.distanceTo(pos) < 0.9) break
+    }
     await bot.waitForChunksToLoad()
 
     console.log(`Teleported ${bot.username} to ${pos.x} ${pos.y} ${pos.z}.`)
