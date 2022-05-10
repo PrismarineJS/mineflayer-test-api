@@ -22,18 +22,10 @@ const events = require('events')
 registerTest('run forward', async (server, startPosition) => {
 
   // Create your bot and have it join the server
-  const bot = mineflayer.createBot({
-    host: 'localhost',
-    port: server.port,
-    username: 'bot123456'
+  const bot = await server.createBot({
+    makeOp: true,
+    startPosition: startPosition
   })
-
-  // Wait for the bot to spawn
-  await events.once(bot, 'spawn')
-
-  // Make the bot op and teleport them to the start position
-  await server.makeOp(bot)
-  await server.teleport(bot, startPosition)
 
   // Run our test
   bot.setControlState('sprint', true)

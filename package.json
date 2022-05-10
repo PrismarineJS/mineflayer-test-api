@@ -39,7 +39,9 @@
     "minecraft-data": "^2.81.0",
     "minecraft-protocol": "^1.24.2",
     "minecraft-wrap": "^1.3.0",
+    "mineflayer": "^4.3.0",
     "path": "^0.12.7",
+    "uuid": "^8.3.2",
     "vec3": "^0.1.7"
   }
 }
