@@ -112,6 +112,7 @@ async function startServer (options) {
       version: server.version
     })
 
+    bot.loadPlugins(botOptions.plugins || [])
     await events.once(bot, 'spawn')
     if (botOptions.makeOp) await server.makeOp(bot)
     if (botOptions.startPosition) await server.teleport(bot, botOptions.startPosition)
