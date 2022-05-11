@@ -36,7 +36,7 @@
   "dependencies": {
     "assert": "^2.0.0",
     "fs": "*",
-    "minecraft-data": "^2.81.0",
+    "minecraft-data": "^3.1.1",
     "minecraft-protocol": "^1.24.2",
     "minecraft-wrap": "^1.3.0",
     "mineflayer": "^4.3.0",
